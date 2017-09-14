@@ -5,25 +5,49 @@
     angular.module('test')
         .controller('testController', ctrl);
 
-    ctrl.$inject = ['$scope'];
+    angular.module('test').value('users',[]);
+    angular.module('test').service('userService', userService);
 
-    function ctrl($scope) {
+    ctrl.$inject = ['$scope','userService'];
+    userService.$inject = ['$q', 'users'];
+
+    function userService($q, users) {
+        this.create = function(user) {
+            users.push(angular.copy(user));
+            return $q(function(reslove) {
+                reslove('회원가입완료 id : ' + users.id);
+            });
+        };
+        this.get = function() {
+            return users;
+            return $q(function(reslove) {
+                reslove('조회완료');
+            })
+        };
+    }
+
+    function ctrl($scope,userService) {
         $scope.test = "hihihi";
         $scope.userItem =
-        {
-            id : '',
-            pw : '',
-            name : '',
-            year: '',
-            month : '',
-            day : ''
-        };
-        $scope.userList = [];
-        $scope.createUser = function() {
-            $scope.userList.push(angular.copy($scope.userItem));
-            console.log($scope.userList);
-            console.log($scope.userItem);
-        };
+            {
+                id : '',
+                pw : '',
+                name : '',
+                year: '',
+                month : '',
+                day : ''
+            };
 
-0    }
+        $scope.userList = [];
+
+        $scope.createUser = function() {
+            userService.create($scope.userItem).then
+            (
+                function (res) {
+                    alert(res)
+                }
+            );
+            $scope.userList = userService.get();
+        };
+    }
 })();
