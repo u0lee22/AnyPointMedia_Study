@@ -7,6 +7,46 @@
 <body ng-controller="testController">
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="app.js"></script>
-    <div>{{test}}</div>
+    <h1>회원가입</h1>
+    <div>{{test}}
+        <table>
+            <tr>
+                <td>ID</td>
+                <td> <input type="text" ng-model="userItem.id"> </td>
+            </tr>
+            <tr>
+                <td>비밀번호</td>
+                <td> <input type="text" ng-model="userItem.pw" id="asd"> </td>
+            </tr>
+            <tr>
+                <td>이름</td>
+                <td> <input type="text" ng-model="userItem.name" id="Useritem.name"> </td>
+            </tr>
+            <tr>
+                <td>생년월일</td>
+                <td>
+                    <input type="number" ng-model="userItem.year" id="Useritem.year" min="1800" max="2017">
+                    <label>년</label>
+                    <input type="number" ng-model="userItem.month" id="Useritem.month" min="01" max="12">
+                    <label>월</label>
+                    <input type="number" ng-model="userItem.day" id="Useritem.day" min="01" max="31">
+                    <label>일</label>
+                </td>
+            </tr>
+        </table>
+        <button type="submit" ng-click="createUser()">가입</button>
+        <button type="reset" >취소</button>
+
+        <ul>
+            <li ng-repeat="user in userList">
+                <span>{{user.id}}</span>
+                <span>{{user.pw}}</span>
+                <span>{{user.name}}</span>
+                <span>{{user.year}}</span>
+                <span>{{user.month}}</span>
+                <span>{{user.day}}</span>
+            </li>
+        </ul>
+    </div>
 </body>
 </html>
